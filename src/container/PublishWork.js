@@ -12,9 +12,37 @@ const PublishWork = () => {
 	const [tokenExist, setTokenExist] = useState(false);
 	const [valueCover, setValueCover] = useState({});
 	const [valueSlider, setValueSlider] = useState();
-	const [valueCheckbox, setValuCheckbox] = useState();
 	const [valueTitle, setValueTitle] = useState("titre");
 	const [valueTextarea, setvalueTextarea] = useState("textearea");
+
+	const [valueCheckBox, setValueCheckbox] = useState({
+		illustrator: "",
+		photoshop: "",
+		indesign: "",
+		afterEffect: "",
+		html: "",
+		css: "",
+		javascript: "",
+		bootstrap: "",
+		wordpress: "",
+		react: "",
+		reactNative: "",
+		heroku: "",
+		nodeJs: "",
+		git: "",
+		github: "",
+		stripe: "",
+		cloudinary: "",
+		express: "",
+		mongoDb: "",
+	});
+
+	const handleCheckbox = (event) => {
+		setValueCheckbox({
+			...valueCheckBox,
+			[event.target.name]: event.target.name,
+		});
+	};
 
 	const handleCover = (event) => {
 		setValueCover(event.target.files[0]);
@@ -22,10 +50,6 @@ const PublishWork = () => {
 
 	const handleSlider = (event) => {
 		setValueSlider(event.target.files);
-	};
-
-	const handleCheckbox = (event) => {
-		setValuCheckbox(event.target.value);
 	};
 
 	const handleTitle = (event) => {
@@ -40,9 +64,23 @@ const PublishWork = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const formData = new FormData();
-		formData.append("file", valueCover);
+		formData.append("valueCover", valueCover);
 		formData.append("valueTitle", valueTitle);
 		formData.append("valueTextarea", valueTextarea);
+
+		const tabCheckBox = Object.values(valueCheckBox);
+		for (let i = 0; i < tabCheckBox.length; i++) {
+			if (tabCheckBox[i] !== "") {
+				formData.append(`tabCheckBox[${i}]`, tabCheckBox[i]);
+			}
+		}
+
+		if (valueSlider !== undefined) {
+			for (let i = 0; i < valueSlider.length; i++) {
+				formData.append(`slider[${i}]`, valueSlider[i]);
+			}
+		}
+
 		try {
 			const response = await axios.post(
 				process.env.REACT_APP_PUBLISH,
@@ -83,8 +121,9 @@ const PublishWork = () => {
 									id="Illustrator"
 									type="checkbox"
 									label="Illustrator"
-									value={valueCheckbox}
+									value={valueCheckBox.illustrator}
 									onChange={handleCheckbox}
+									name="Illustrator"
 								/>
 							</div>
 							<div>
@@ -92,6 +131,9 @@ const PublishWork = () => {
 									id="Photoshop"
 									type="checkbox"
 									label="Photoshop"
+									value={valueCheckBox.photoshop}
+									onChange={handleCheckbox}
+									name="Photoshop"
 								/>
 							</div>
 							<div>
@@ -99,6 +141,9 @@ const PublishWork = () => {
 									id="Indesign"
 									type="checkbox"
 									label="Indesign"
+									value={valueCheckBox.indesign}
+									onChange={handleCheckbox}
+									name="Indesign"
 								/>
 							</div>
 							<div>
@@ -106,6 +151,9 @@ const PublishWork = () => {
 									id="After Effect"
 									type="checkbox"
 									label="After Effect"
+									value={valueCheckBox.afterEffect}
+									onChange={handleCheckbox}
+									name="After Effect"
 								/>
 							</div>
 							<div>
@@ -113,6 +161,9 @@ const PublishWork = () => {
 									id="Html 5"
 									type="checkbox"
 									label="Html 5"
+									value={valueCheckBox.html}
+									onChange={handleCheckbox}
+									name="Html 5"
 								/>
 							</div>
 							<div>
@@ -120,6 +171,9 @@ const PublishWork = () => {
 									id="Css 3"
 									type="checkbox"
 									label="Css 3"
+									value={valueCheckBox.css}
+									onChange={handleCheckbox}
+									name="Css 3"
 								/>
 							</div>
 							<div>
@@ -127,6 +181,9 @@ const PublishWork = () => {
 									id="Javascript"
 									type="checkbox"
 									label="Javascript"
+									value={valueCheckBox.javascript}
+									onChange={handleCheckbox}
+									name="Javascript"
 								/>
 							</div>
 							<div>
@@ -134,6 +191,9 @@ const PublishWork = () => {
 									id="Bootstrap"
 									type="checkbox"
 									label="Bootstrap"
+									value={valueCheckBox.bootstrap}
+									onChange={handleCheckbox}
+									name="Bootstrap"
 								/>
 							</div>
 							<div>
@@ -141,6 +201,9 @@ const PublishWork = () => {
 									id="WordPress"
 									type="checkbox"
 									label="WordPress"
+									value={valueCheckBox.wordpress}
+									onChange={handleCheckbox}
+									name="WordPress"
 								/>
 							</div>
 							<div>
@@ -148,6 +211,9 @@ const PublishWork = () => {
 									id="React Js"
 									type="checkbox"
 									label="React Js"
+									value={valueCheckBox.react}
+									onChange={handleCheckbox}
+									name="React Js"
 								/>
 							</div>
 							<div>
@@ -155,6 +221,9 @@ const PublishWork = () => {
 									id="React Native"
 									type="checkbox"
 									label="React Native"
+									value={valueCheckBox.reactNative}
+									onChange={handleCheckbox}
+									name="React Native"
 								/>
 							</div>
 							<div>
@@ -162,6 +231,9 @@ const PublishWork = () => {
 									id="Heroku"
 									type="checkbox"
 									label="Heroku"
+									value={valueCheckBox.heroku}
+									onChange={handleCheckbox}
+									name="Heroku"
 								/>
 							</div>
 							<div>
@@ -169,16 +241,29 @@ const PublishWork = () => {
 									id="Node Js"
 									type="checkbox"
 									label="Node Js"
+									value={valueCheckBox.nodeJs}
+									onChange={handleCheckbox}
+									name="Node Js"
 								/>
 							</div>
 							<div>
-								<Input id="Git" type="checkbox" label="Git" />
+								<Input
+									id="Git"
+									type="checkbox"
+									label="Git"
+									value={valueCheckBox.git}
+									onChange={handleCheckbox}
+									name="Git"
+								/>
 							</div>
 							<div>
 								<Input
 									id="GitHub"
 									type="checkbox"
 									label="GitHub"
+									value={valueCheckBox.github}
+									onChange={handleCheckbox}
+									name="GitHub"
 								/>
 							</div>
 							<div>
@@ -186,6 +271,9 @@ const PublishWork = () => {
 									id="Stripe"
 									type="checkbox"
 									label="Stripe"
+									value={valueCheckBox.stripe}
+									onChange={handleCheckbox}
+									name="Stripe"
 								/>
 							</div>
 							<div>
@@ -193,6 +281,9 @@ const PublishWork = () => {
 									id="Cloudinary"
 									type="checkbox"
 									label="Cloudinary"
+									value={valueCheckBox.cloudinary}
+									onChange={handleCheckbox}
+									name="Cloudinary"
 								/>
 							</div>
 							<div>
@@ -200,6 +291,9 @@ const PublishWork = () => {
 									id="Express"
 									type="checkbox"
 									label="Express"
+									value={valueCheckBox.express}
+									onChange={handleCheckbox}
+									name="Express"
 								/>
 							</div>
 							<div>
@@ -207,6 +301,9 @@ const PublishWork = () => {
 									id="MongoDB"
 									type="checkbox"
 									label="MongoDB"
+									value={valueCheckBox.mongoDb}
+									onChange={handleCheckbox}
+									name="MongoDB"
 								/>
 							</div>
 						</div>
