@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
+
 // Components
 import Input from "../components/Input";
 import Textarea from "../components/Textarea";
 
+// Image
+import Deconnexion from "../img/deconnexion.svg";
+
 const PublishWork = () => {
 	// check token
 	const token = Cookies.get("token");
+	const history = useHistory();
 
 	const [tokenExist, setTokenExist] = useState(false);
 	const [valueCover, setValueCover] = useState({});
 	const [valueSlider, setValueSlider] = useState();
-	const [valueTitle, setValueTitle] = useState("titre");
-	const [valueTextarea, setvalueTextarea] = useState("textearea");
+	const [valueTitle, setValueTitle] = useState("");
+	const [valueTextarea, setvalueTextarea] = useState("");
 
 	const [valueCheckBox, setValueCheckbox] = useState({
 		illustrator: "",
@@ -36,6 +42,17 @@ const PublishWork = () => {
 		express: "",
 		mongoDb: "",
 	});
+
+	useEffect(() => {
+		if (token) {
+			setTokenExist(true);
+		}
+	}, []);
+
+	const handleDeconnexion = () => {
+		Cookies.remove("token");
+		history.push("/");
+	};
 
 	const handleCheckbox = (event) => {
 		setValueCheckbox({
@@ -103,9 +120,14 @@ const PublishWork = () => {
 
 	return (
 		<div>
-			<div>
-				<div>
+			{tokenExist === true ? (
+				<div id="publish-work">
 					<form onSubmit={handleSubmit}>
+						<div className="deconnexion">
+							<div className="btn" onClick={handleDeconnexion}>
+								<img src={Deconnexion} />
+							</div>
+						</div>
 						<Input
 							label="Cover"
 							type="file"
@@ -329,7 +351,11 @@ const PublishWork = () => {
 						<Input type="submit" />
 					</form>
 				</div>
-			</div>
+			) : (
+				<div className="go">
+					<Link to="/">Go to home</Link>
+				</div>
+			)}
 		</div>
 	);
 };

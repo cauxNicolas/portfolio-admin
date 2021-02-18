@@ -5,8 +5,8 @@ import Cookies from "js-cookie";
 
 const Login = () => {
 	const [login, setLogin] = useState({
-		passOne: process.env.REACT_APP_PASSONE,
-		passTwo: process.env.REACT_APP_PASSTWO,
+		passOne: "",
+		passTwo: "",
 	});
 	const history = useHistory();
 
@@ -31,22 +31,24 @@ const Login = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<h2>Connexion</h2>
-			<input
-				type="password"
-				name="passOne"
-				value={login.passOne}
-				onChange={valueConnect}
-			/>
-			<input
-				type="password"
-				name="passTwo"
-				value={login.passTwo}
-				onChange={valueConnect}
-			/>
-			<input type="submit" value="Valider" />
-		</form>
+		<div id="login" className="content">
+			<form onSubmit={handleSubmit}>
+				<h2>Connexion</h2>
+				<input
+					type="password"
+					name="passOne"
+					value={login.passOne}
+					onChange={valueConnect}
+				/>
+				<input
+					type="password"
+					name="passTwo"
+					value={login.passTwo}
+					onChange={valueConnect}
+				/>
+				<input type="submit" value="Valider" />
+			</form>
+		</div>
 	);
 };
 
