@@ -40,7 +40,7 @@ const PublishWork = () => {
 	const handleCheckbox = (event) => {
 		setValueCheckbox({
 			...valueCheckBox,
-			[event.target.name]: event.target.name,
+			[event.target.name]: event.target.id,
 		});
 	};
 
@@ -68,16 +68,21 @@ const PublishWork = () => {
 		formData.append("valueTitle", valueTitle);
 		formData.append("valueTextarea", valueTextarea);
 
+		////////////
+
 		const tabCheckBox = Object.values(valueCheckBox);
+		console.log(tabCheckBox);
 		for (let i = 0; i < tabCheckBox.length; i++) {
 			if (tabCheckBox[i] !== "") {
-				formData.append(`tabCheckBox[${i}]`, tabCheckBox[i]);
+				formData.append(`check ${[i]}`, tabCheckBox[i]);
 			}
 		}
 
+		///////////
+
 		if (valueSlider !== undefined) {
 			for (let i = 0; i < valueSlider.length; i++) {
-				formData.append(`slider[${i}]`, valueSlider[i]);
+				formData.append(`slider ${[i]}`, valueSlider[i]);
 			}
 		}
 
