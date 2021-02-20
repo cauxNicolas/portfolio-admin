@@ -115,6 +115,8 @@ const PublishWork = () => {
 				}
 			);
 			console.log(response.data);
+			setValueTitle("");
+			setvalueTextarea("");
 		} catch (error) {}
 	};
 
