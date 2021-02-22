@@ -105,7 +105,7 @@ const PublishWork = () => {
 
 		try {
 			const response = await axios.post(
-				process.env.REACT_APP_PUBLISH,
+				process.env.REACT_APP_PUBLISH_LOCAL,
 				formData,
 				{
 					headers: {
