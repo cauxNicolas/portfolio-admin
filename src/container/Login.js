@@ -18,13 +18,10 @@ const Login = () => {
 		event.preventDefault();
 		if (login.passOne !== "" && login.passTwo !== "") {
 			try {
-				const response = await axios.post(
-					process.env.REACT_APP_LOGIN_LOCAL,
-					{
-						passOne: login.passOne,
-						passTwo: login.passTwo,
-					}
-				);
+				const response = await axios.post(process.env.REACT_APP_LOGIN, {
+					passOne: login.passOne,
+					passTwo: login.passTwo,
+				});
 				Cookies.set("token", response.data.token);
 				history.push("/publish-work");
 			} catch (error) {
